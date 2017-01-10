@@ -1,0 +1,3 @@
+excelscrapper.py ---> line 21 insert your username, password
+SMSMessage.py ---> line 15 and 16 enter mobile number and password
+undertaking.docx ----> fill as necessary (change value of range on line 12 in excelscrapper.py accordingly)
