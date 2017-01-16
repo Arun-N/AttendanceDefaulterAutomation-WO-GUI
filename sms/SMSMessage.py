@@ -12,8 +12,8 @@ class Messenger:
         message = self.msg
         number = self.stud_num  # recipient's number
 
-        username = "your_registered_mobile_number"
-        passwd = "your_way2sms_password"
+        username = "mobile_num"
+        passwd = "password"
 
         message = "+".join(message.split(' '))
 

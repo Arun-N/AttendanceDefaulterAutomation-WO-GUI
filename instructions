@@ -1,3 +1,40 @@
 excelscrapper.py ---> line 21 insert your username, password
 SMSMessage.py ---> line 15 and 16 enter mobile number and password
 undertaking.docx ----> fill as necessary (change value of range on line 12 in excelscrapper.py accordingly)
+
+
+
+        for para in document.paragraphs:
+            temp = para.text.split()
+            if not temp:
+                continue
+            else:
+                for word in temp:
+                    self.token.append(word)
+        print(self.token)
+
+
+
+        word = para.text.split()
+            if not word:
+                continue
+            else:
+                if word[0] == "Name:":
+                    print("Got the name")
+                    newtext = para.text.replace("Name:", "Name: A")
+                    para.text = newtext
+                    self.count += 1
+                elif word[0] == "RollNo:":
+                    print("Got the RNO")
+                    newtext = para.text.replace("RollNo:", "RollNo: B")
+                    para.text = newtext
+                    self.count += 1
+                elif word[0] == "Attendance:":
+                    print("Got the Attd")
+                    newtext = para.text.replace("Attendance:", "Attendance: C")
+                    para.text = newtext
+                    self.count += 1
+                if self.count == 3:
+                    document.save('temp.docx')
+                    self.count = 0
+                    break
