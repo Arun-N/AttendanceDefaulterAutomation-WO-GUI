@@ -42,3 +42,15 @@ undertaking.docx ----> fill as necessary (change value of range on line 12 in ex
 
                             if str.isnumeric(str(sheet_name['R' + str(x)].value)):
             print("inside 2")
+
+
+
+
+    def start_process(self):
+        self.op_console.append("Starting Process.....")
+        excelscrapper.run_defaulter_system(self.op_console)
+        self.op_console.append("Process Finished Successfully!")
+
+    def defaulter_names(self):
+        self.op_console.append("Opening Notepad......")
+        webbrowser.open('log.txt')

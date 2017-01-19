@@ -7,21 +7,15 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+
 import excelscrapper
 import webbrowser
 
-
-class MyStream(QtCore.QObject):
-    message = QtCore.pyqtSignal(str)
-
-    def __init__(self, parent=None):
-        super(MyStream, self).__init__(parent)
-
-    def write(self, message):
-        self.message.emit(str(message))
-
-
 class Ui_MainWindow(object):
+
+    def __init__(self):
+        self.excelfilename = ""
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -48,12 +42,12 @@ class Ui_MainWindow(object):
         self.op_console.setObjectName("op_console")
 
         self.send_button = QtWidgets.QPushButton(self.centralwidget)
-        self.send_button.setGeometry(QtCore.QRect(60, 130, 161, 71))
+        self.send_button.setGeometry(QtCore.QRect(60, 260, 161, 71))
         self.send_button.setObjectName("send_button")
         self.send_button.clicked.connect(self.start_process)
 
         self.get_names = QtWidgets.QPushButton(self.centralwidget)
-        self.get_names.setGeometry(QtCore.QRect(60, 280, 161, 71))
+        self.get_names.setGeometry(QtCore.QRect(60, 360, 161, 71))
         self.get_names.setObjectName("get_names")
         self.get_names.clicked.connect(self.defaulter_names)
 
@@ -71,11 +65,28 @@ class Ui_MainWindow(object):
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 450, 241, 16))
-
         font = QtGui.QFont()
         font.setPointSize(9)
+
         self.label.setFont(font)
         self.label.setObjectName("label")
+
+        self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 20, 251, 51))
+        self.groupBox_2.setObjectName("groupBox_2")
+
+        self.addFile = QtWidgets.QPushButton(self.groupBox_2)
+        self.addFile.setGeometry(QtCore.QRect(10, 20, 231, 23))
+        self.addFile.setObjectName("addFile")
+        self.addFile.clicked.connect(self.add_excel_file)
+
+        self.filename = QtWidgets.QLabel(self.centralwidget)
+        self.filename.setGeometry(QtCore.QRect(10, 120, 251, 16))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.filename.setFont(font)
+        self.filename.setObjectName("filename")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -91,15 +102,32 @@ class Ui_MainWindow(object):
         self.send_button.setText(_translate("MainWindow", "Send"))
         self.get_names.setText(_translate("MainWindow", "Get Defaulter Names"))
         self.label.setText(_translate("MainWindow", "Created by Arun - Aditya - Sourabh"))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Excel File Name"))
+        self.addFile.setText(_translate("MainWindow", "Add File"))
+        self.filename.setText(_translate("MainWindow", "File Name:"))
 
     def start_process(self):
         self.op_console.append("Starting Process.....")
-        excelscrapper.run_defaulter_system(self.op_console)
-        self.op_console.append("Process Finished Successfully!")
+        if self.excelfilename == "":
+            self.op_console.append("File Not Selected")
+            self.op_console.append("Process Finished Unsuccessfully!")
+        else:
+            excelscrapper.run_defaulter_system(self.op_console, self.excelfilename)
+            self.op_console.append("Process Finished Successfully!")
 
     def defaulter_names(self):
         self.op_console.append("Opening Notepad......")
         webbrowser.open('log.txt')
+
+    def add_excel_file(self):
+        dlg = QFileDialog()
+        # dlg.setFilter("Excel File (*.xlsx)")
+        dlg.setFileMode(QFileDialog.AnyFile)
+        file_name = dlg.List
+        if dlg.exec_():
+            file_name = dlg.selectedFiles()
+        self.filename.setText(file_name[0])
+        self.excelfilename = file_name[0]
 
 
 if __name__ == "__main__":
@@ -109,6 +137,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-
     sys.exit(app.exec_())
 

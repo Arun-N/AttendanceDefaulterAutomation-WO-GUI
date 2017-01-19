@@ -4,9 +4,9 @@ from sms.SMSMessage import Messenger
 from docwriter.utkng_editor import EditIt
 
 
-def run_defaulter_system(console):
+def run_defaulter_system(console, file):
     defaulter = []
-    wb2 = load_workbook('updated_contact_no.xlsx', read_only=True, data_only=True)
+    wb2 = load_workbook(file, read_only=True, data_only=True)
     sheet_name = wb2['defaulter']
     contact_sheet = wb2['contact']
     email_sheet = wb2['email']
