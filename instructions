@@ -38,3 +38,7 @@ undertaking.docx ----> fill as necessary (change value of range on line 12 in ex
                     document.save('temp.docx')
                     self.count = 0
                     break
+
+
+                            if str.isnumeric(str(sheet_name['R' + str(x)].value)):
+            print("inside 2")

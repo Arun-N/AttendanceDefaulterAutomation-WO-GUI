@@ -48,7 +48,8 @@ class EditIt:
                     self.count += 1
                 if self.count == 3:
                     EditIt.file_no += 1
-                    document.save("temp" + str(EditIt.file_no) + ".docx")
+                    #document.save("temp" + str(EditIt.file_no) + ".docx")
+                    document.save("temp.docx")
                     #time.sleep(2)
                     self.count = 0
                     return EditIt.file_no
