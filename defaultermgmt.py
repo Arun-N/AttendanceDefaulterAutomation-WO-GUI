@@ -7,10 +7,13 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QFileDialog
 
 import excelscrapper
 import webbrowser
+import os
+import PyQt5
 
 class Ui_MainWindow(object):
 
@@ -117,21 +120,30 @@ class Ui_MainWindow(object):
 
     def defaulter_names(self):
         self.op_console.append("Opening Notepad......")
-        webbrowser.open('log.txt')
+        if os.path.exists('log.txt'):
+            webbrowser.open('log.txt')
+        else:
+            self.op_console.append("File Not Found")
 
     def add_excel_file(self):
         dlg = QFileDialog()
         # dlg.setFilter("Excel File (*.xlsx)")
         dlg.setFileMode(QFileDialog.AnyFile)
-        file_name = dlg.List
+        file_path = dlg.List
         if dlg.exec_():
-            file_name = dlg.selectedFiles()
-        self.filename.setText(file_name[0])
-        self.excelfilename = file_name[0]
+            file_path = dlg.selectedFiles()
+        file_name = str(file_path[0]).split("/")
+        for x in file_name:
+            if ".xlsx" in x:
+                excel_name = x
+        self.filename.setText(excel_name)
+        self.excelfilename = file_path[0]
 
 
 if __name__ == "__main__":
     import sys
+    pyqt = os.path.dirname(PyQt5.__file__)
+    QApplication.addLibraryPath(os.path.join(pyqt, "plugins"))
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

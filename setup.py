@@ -13,5 +13,4 @@ if sys.platform == "win32":
 setup(  name = "Defaulter Manager",
         version = "0.1",
         description = "Manages and automates selecting defaulter from excel file",
-        options = {"build_exe": build_exe_options},
         executables = [Executable("defaultermgmt.py", base=base)])
