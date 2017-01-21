@@ -14,7 +14,7 @@ def run_defaulter_system(console, file):
 
     mylog = open('log.txt', 'w')
 
-    for x in range(11, 116):
+    for x in range(11, 14):
         if sheet_name['R' + str(x)].value is not None:
             if sheet_name['R' + str(x)].value != "%":
                 if int(sheet_name['R' + str(x)].value) < 75:
@@ -24,7 +24,7 @@ def run_defaulter_system(console, file):
                     student_email = email_sheet['D' + str(int(student_roll) + 1)].value  # update sheet
                     student_mobile = str(contact_sheet['D' + str(int(student_roll) + 1)].value)  # update sheet
 
-                    '''editit = EditIt('docwriter/undertaking.docx', student_name, student_roll, student_att_percent)
+                    editit = EditIt('docwriter/undertaking.docx', student_name, student_roll, student_att_percent)
                     fno = str(editit.read_n_write())
 
                     mail_client = MailerApp(student_email, "appuarunnair@gmail.com", "f1011995mon", "undertaking",
@@ -36,7 +36,7 @@ def run_defaulter_system(console, file):
                     mail_client.send()
 
                     messenger = Messenger(student_mobile, sms_message)
-                    messenger.compose()'''
+                    messenger.compose()
 
                     console.append("Defaulter : {name} {perc}% \n".format(name=student_name, perc=student_att_percent))
                     defaulter.append(student_name)
