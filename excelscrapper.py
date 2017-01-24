@@ -27,7 +27,7 @@ def run_defaulter_system(console, file):
                     editit = EditIt('docwriter/undertaking.docx', student_name, student_roll, student_att_percent)
                     fno = str(editit.read_n_write())
 
-                    mail_client = MailerApp(student_email, "appuarunnair@gmail.com", "f1011995mon", "undertaking",
+                    mail_client = MailerApp(student_email, "email_id", "passwd", "undertaking",
                                             student_att_percent, student_name, student_roll)
 
                     mail_client.htmladd("Attendance Report For {name} Roll No {roll} TECM".format(name=student_name,
